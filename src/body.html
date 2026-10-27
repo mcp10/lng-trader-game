@@ -1,0 +1,96 @@
+<div id="home" class="screen wrap">
+  <div class="home">
+    <div class="hero">
+      <div>
+        <div class="lbl">Physical LNG trading simulation · 104 weeks</div>
+        <h1>LNG <span>Trader</span> Sim</h1>
+        <p class="tag">Buy FOB at Sabine Pass, Ras Laffan, Gladstone or Bonny. Pick a ship, a destination and a canal. Carry the boil-off, the hire and the tolls, and land it against the curve. Manage a chartered fleet through two winters and earn your stars.</p>
+        <div class="meta lbl">TTF · JKM · Henry Hub · Brent · 174k spot charter</div>
+      </div>
+      <div class="start">
+        <label class="lbl" for="company">Name your trading house</label>
+        <input id="company" class="text" type="text" maxlength="28" value="Altstetten Gas &amp; Power" autocomplete="off">
+        <div class="row">
+          <button class="btn btn-primary btn-lg" data-act="begin">Begin trading</button>
+          <button class="btn btn-lg" id="resumeBtn" data-act="resume" hidden>Resume saved game</button>
+        </div>
+        <div class="foot">Starts October 2026 with $250M of trading capital and one TFDE on a one-year term charter at Sabine Pass. Progress saves in this browser.</div>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="f"><h3>Cargoes</h3><p>A weekly offer book at four load ports, each tender with its own laycan and price. Every lifting shows freight, boil-off, canal and port costs before you confirm; FOB is paid at loading. Divert on the water, fix the price forward, float it in contango, or sell it afloat.</p></div>
+      <div class="f"><h3>Chartered fleet</h3><p>Steam, TFDE and 2-stroke tonnage on term or spot. Term ships cost hire every day, idle or not, and need positioning. Spot ships are prompt but priced round-trip. Relet idle tonnage when the spot market spikes.</p></div>
+      <div class="f"><h3>Contracts and windows</h3><p>Sell DES into a two-week delivery window and source the cargo later, or sign term contracts: a US tolling slot you can cancel for the fee, a take-or-pay Qatar SPA, a Japanese oil-linked sale. Collateral, credit breaches and default penalties are all real.</p></div>
+      <div class="f"><h3>Market and paper</h3><p>Seasonal forward curves with hub liquidity that thins when the tape is volatile, TTF and JKM paper to W+26 with margin, EU storage, canal status, and a news feed that lands one week before prices move.</p></div>
+    </div>
+    <div class="foot">Educational and entertainment simulation. Prices, ports and events are stylised and not a forecast. Not financial advice.</div>
+    <div class="foot credits">LNG Trader Sim v1.0 · Map: Natural Earth via world-atlas · <a href="https://github.com/mcp10/lng-trader-game" target="_blank" rel="noopener">Source on GitHub</a> · <a href="https://github.com/mcp10/lng-trader-game/issues" target="_blank" rel="noopener">Report a bug or suggest a feature</a><span class="phone-note"> · Best played on a desktop or tablet; the phone layout is compact.</span></div>
+  </div>
+</div>
+
+<div id="game" class="screen" hidden>
+  <header class="topbar wrap">
+    <div class="brand"><span class="t">LNG Trader Sim</span><span class="c" id="t-company"></span></div>
+    <div class="stats">
+      <div class="stat"><span class="v" id="t-week"></span><span class="k" id="t-date"></span></div>
+      <div class="stat"><span class="v" id="t-cash"></span><span class="k">Cash</span></div>
+      <div class="stat"><span class="v" id="t-net"></span><span class="k">Net P&amp;L</span></div>
+      <div class="stat"><span class="v" id="t-desk"></span><span class="k">Desk · cargoes</span></div>
+      <div class="stat"><span class="struct" id="t-struct"></span><span class="k">TTF curve</span></div>
+      <div class="stat"><span class="v" id="t-charter"></span><span class="k">Spot 174k $/d</span></div>
+    </div>
+    <div class="topact">
+      <button class="btn btn-sm" data-act="guide">Guide</button>
+      <button class="btn btn-sm" data-act="save">Save</button>
+      <button class="btn btn-sm" data-act="homeModal">Home</button>
+      <button class="btn btn-sm" data-act="retireModal">Retire</button>
+      <button class="btn btn-primary" data-act="next" id="nextBtn">Next week →</button>
+    </div>
+  </header>
+
+  <main class="floor wrap">
+    <div class="col col-market">
+      <section class="panel"><div class="panel-h"><h3>Hubs</h3><span class="meta">$/MMBtu · weekly</span></div><div class="panel-b" id="hubs"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Forward curves</h3><span class="meta" id="curve-meta"></span></div><div class="panel-b" id="curves"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Spreads</h3></div><div class="panel-b" id="spreads"></div></section>
+      <section class="panel"><div class="panel-h"><h3>FOB markers</h3><span class="meta">load ports</span></div><div class="panel-b" id="fob"></div></section>
+      <section class="panel"><div class="panel-h"><h3>DES markers</h3><span class="meta">discharge ports</span></div><div class="panel-b" id="desm"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Shipping &amp; logistics</h3></div><div class="panel-b" id="shipping"></div></section>
+    </div>
+
+    <div class="col col-centre">
+      <section class="panel chart"><div class="panel-h"><h3>Chart</h3><span class="meta" id="chart-meta"></span></div><div id="map"></div>
+        <div class="legend"><span><em></em>load port</span><span><em class="d"></em>discharge port</span><span><i></i>laden</span><span><i class="b"></i>ballast</span><span><i class="f"></i>floating</span></div></section>
+      <section class="panel"><div class="panel-h"><h3>Cargo positions</h3><div class="hact"><span class="meta" id="cargo-meta"></span><button class="btn btn-sm btn-primary" data-act="buyModal">Buy FOB cargo</button><button class="btn btn-sm" data-act="fwdModal">Sell DES forward (unsourced)</button></div></div><div class="panel-b tight tblwrap" id="cargoes"></div></section>
+      <section class="panel"><div class="panel-h"><h3>DES sales</h3><span class="meta" id="commit-meta"></span></div><div class="panel-b tight tblwrap" id="commits"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Term contracts</h3><span class="meta" id="contract-meta"></span></div><div class="panel-b" id="contracts"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Paper hedges</h3><div class="hact"><span class="meta" id="hedge-meta"></span><button class="btn btn-sm" data-act="hedgeModal">New hedge</button></div></div><div class="panel-b tight tblwrap" id="hedges"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Fleet</h3><div class="hact"><span class="meta" id="fleet-meta"></span><button class="btn btn-sm" data-act="charterModal">Charter term vessel</button></div></div><div class="panel-b tight tblwrap" id="fleet"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Delivered &amp; closed</h3><span class="meta" id="done-meta"></span></div><div class="panel-b tight tblwrap" id="done"></div></section>
+    </div>
+
+    <div class="col col-desk">
+      <section class="panel"><div class="panel-h"><h3>News feed</h3><span class="meta" id="news-meta"></span></div><div class="panel-b tight" id="news"></div></section>
+      <section class="panel" id="storyPanel" hidden><div class="panel-h"><h3>Developing story</h3><span class="meta" id="story-meta"></span></div><div class="panel-b" id="story"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Fundamentals desk</h3></div><div class="panel-b" id="analyst"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Financials</h3></div><div class="panel-b" id="fin"></div></section>
+      <section class="panel"><div class="panel-h"><h3>Trade log</h3></div><div class="panel-b tight"><ul class="log" id="log"></ul></div></section>
+    </div>
+  </main>
+</div>
+
+<div id="end" class="screen wrap" hidden>
+  <div class="end">
+    <div class="lbl" id="end-title">104-week final settlement</div>
+    <div class="big" id="end-net"></div>
+    <div class="lbl">Net P&amp;L</div>
+    <div class="stars" id="end-stars"></div>
+    <div class="grid" id="end-grid"></div>
+    <p class="dim" id="end-note" style="max-width:60ch"></p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button class="btn btn-primary btn-lg" data-act="again">Trade again</button><button class="btn btn-lg" data-act="viewFloor">Review the floor</button></div>
+    <div class="foot">★★★★ above $400M · ★★★ $200M to $400M · ★★ positive · ★ negative</div>
+  </div>
+</div>
+
+<div id="modal" class="modal" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="sheet-h"><h2 id="sheetTitle"></h2><button class="close" data-act="closeModal" aria-label="Close">×</button></div><div class="sheet-b" id="sheetBody"></div><div class="sheet-f" id="sheetFoot"></div></div></div>
+<div id="toast" class="toast" hidden></div>
