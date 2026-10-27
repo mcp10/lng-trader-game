@@ -2,7 +2,7 @@
 
 A browser game of physical LNG trading. Run a trading desk for 104 weeks: buy FOB cargoes from a weekly offer book at Sabine Pass, Ras Laffan, Gladstone and Bonny, charter steam, TFDE and two-stroke ships on term or spot, route them through Panama, Suez or the Cape, sell DES into delivery windows, sign term contracts and hedge on TTF and JKM month contracts.
 
-**Play it:** https://mcp10.github.io/lng-trader-game/
+**Play it:** https://lng-trader-game.netlify.app/
 
 ![LNG Trader Sim](og.png)
 

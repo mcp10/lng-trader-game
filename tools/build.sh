@@ -5,7 +5,7 @@
 # Usage: tools/build.sh            SITE_URL=https://lngtrader.example/ tools/build.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
-SITE_URL="${SITE_URL:-https://mcp10.github.io/lng-trader-game/}"
+SITE_URL="${SITE_URL:-https://lng-trader-game.netlify.app/}"
 TITLE="LNG Trader Sim"
 DESC="A browser game of physical LNG trading. Buy FOB cargoes at Sabine Pass, Ras Laffan, Gladstone and Bonny, charter steam, TFDE and two-stroke ships, route them through Panama, Suez or the Cape, sell DES into delivery windows, sign term contracts and hedge on TTF and JKM paper over 104 weeks."
 GFONTS="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
