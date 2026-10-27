@@ -48,7 +48,12 @@ To host under your own domain, set `SITE_URL` when building so the canonical and
 
 ## Hosting
 
-The site is static. On GitHub, enable Pages with **Settings, Pages, Source: Deploy from a branch, Branch: master / (root)**. Every push to `master` redeploys.
+The site is static: `index.html`, `fonts/`, `og.png` and `favicon.svg` are all it needs.
+
+- **Netlify.** Import the repo (`netlify.toml` sets publish directory `.` and no build command), or drag the four items above onto app.netlify.com/drop.
+- **GitHub Pages.** Settings, Pages, Source: Deploy from a branch, Branch: master / (root).
+
+Every push to `master` redeploys on either.
 
 Saved games live in the player's browser (`localStorage`) and are tied to the domain.
 
